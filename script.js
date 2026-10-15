@@ -158,11 +158,11 @@ document.addEventListener("DOMContentLoaded", () => {
           el.addEventListener('blur', () => cursorRing.classList.remove('is-link'));
         });
       document.addEventListener('mouseleave', () => {
-          gsap.to('.cursor-dot, .cursor-ring, .cursor-audio-ring', { opacity: 0, duration: 0.2 });
+          document.body.classList.add('cursor-hidden');
       });
 
       document.addEventListener('mouseenter', () => {
-          gsap.to('.cursor-dot, .cursor-ring', { opacity: 1, duration: 0.2 });
+          document.body.classList.remove('cursor-hidden');
       });
       }
 
@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }, 100);
           cursorRing.classList.remove('is-entry');
           cursorSpan.innerHTML = 'View';
-          cursorAudioRing.style.opacity = '1';
+          cursorAudioRing.classList.add('is-active');
           
           initAudioContext();
           if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume(); 
