@@ -166,6 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if(!reduceMotion) {
         try {
           lenis = new Lenis({ duration: 1.3, smoothWheel: true });
+          lenis.stop()  
           const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
           requestAnimationFrame(raf);
         } catch(e){}
@@ -205,6 +206,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         entryScreen.addEventListener('click', () => {
+          htmlElement.classList.remove('is-locked');
+          document.body.classList.remove('is-locked');
           cursorRing.classList.remove('is-entry');
           cursorSpan.innerHTML = 'View';
           cursorAudioRing.style.opacity = '1';
