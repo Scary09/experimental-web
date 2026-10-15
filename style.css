@@ -309,3 +309,44 @@
       color: var(--pure-ink); font-size: 0.85rem; font-weight: 600;
     }
     footer nav ul { gap: 1.6rem; display: flex; list-style: none; }
+    
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: var(--line) transparent;
+    }
+
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--line);
+      border-radius: 9999px;
+      border: 1px solid transparent;
+      background-clip: padding-box;
+      transition: background 0.3s ease;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+
+
+    html.is-locked,
+    body.is-locked {
+      overflow: hidden !important;
+      scrollbar-width: none !important; /* Firefox */
+      -ms-overflow-style: none !important; /* IE/Edge */
+    }
+
+    html.is-locked::-webkit-scrollbar,
+    body.is-locked::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+    }
