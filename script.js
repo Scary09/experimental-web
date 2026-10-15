@@ -157,6 +157,13 @@ document.addEventListener("DOMContentLoaded", () => {
           el.addEventListener('focus', () => cursorRing.classList.add('is-link'));
           el.addEventListener('blur', () => cursorRing.classList.remove('is-link'));
         });
+      document.addEventListener('mouseleave', () => {
+          gsap.to('.cursor-dot, .cursor-ring, .cursor-audio-ring', { opacity: 0, duration: 0.2 });
+      });
+
+      document.addEventListener('mouseenter', () => {
+          gsap.to('.cursor-dot, .cursor-ring', { opacity: 1, duration: 0.2 });
+      });
       }
 
       // ==========================================
