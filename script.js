@@ -160,19 +160,38 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // ==========================================
-      // 4. Smooth Scrolling Setup
+      // 4. Smooth Scrolling Setup (Lenis + GSAP)
       // ==========================================
       let lenis = null;
-      if(!reduceMotion) {
+
+      if (!reduceMotion) {
         try {
-          lenis = new Lenis({ duration: 1.3, smoothWheel: true });
-          lenis.stop()  
-          const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
-          requestAnimationFrame(raf);
-        } catch(e){}
+          lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            orientation: 'vertical',
+            gestureOrientation: 'vertical',
+            smoothWheel: true,
+            wheelMultiplier: 1,
+            touchMultiplier: 2,
+            infinite: false
+          });
+
+          lenis.on('scroll', ScrollTrigger.update);
+
+          gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+          });
+
+          gsap.ticker.lagSmoothing(0);
+
+          if (entryScreen && document.documentElement.classList.contains('is-locked')) {
+            lenis.stop();
+          }
+        } catch (e) {
+          console.error("Lenis init error:", e);
+        }
       }
-      gsap.registerPlugin(ScrollTrigger);
-      if(lenis) lenis.on('scroll', ScrollTrigger.update);
 
       // ==========================================
       // 5. Interactions & Animations
@@ -208,6 +227,12 @@ document.addEventListener("DOMContentLoaded", () => {
         entryScreen.addEventListener('click', () => {
           htmlElement.classList.remove('is-locked');
           document.body.classList.remove('is-locked');
+          if (lenis) {
+            lenis.start();
+          }
+          setTimeout(() => {
+            ScrollTrigger.refresh();
+          }, 100);
           cursorRing.classList.remove('is-entry');
           cursorSpan.innerHTML = 'View';
           cursorAudioRing.style.opacity = '1';
