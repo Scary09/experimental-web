@@ -99,7 +99,14 @@
       position: fixed; top: 0; left: 0; width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--accent);
       z-index: 199; pointer-events: none; transform: translate(-50%, -50%); opacity: 0; transition: opacity 1.5s ease;
     }
-
+    .cursor-audio-ring.is-active {
+      opacity: 1;
+    }
+    body.cursor-hidden .cursor-dot,
+    body.cursor-hidden .cursor-ring,
+    body.cursor-hidden .cursor-audio-ring {
+      opacity: 0 !important;
+    }
     .wrap { max-width: 1240px; margin: 0 auto; padding: 0 6vw; position: relative; z-index: 1; }
     .section-label {
       font-family: var(--font-body); font-size: 0.8rem; font-weight: 500;
